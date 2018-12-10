@@ -76,4 +76,5 @@ public class MainActivity extends Activity {
         listDataChild.put(listDataHeader.get(1), polisen);
         listDataChild.put(listDataHeader.get(2), trafikinfo);
     }
+
 }

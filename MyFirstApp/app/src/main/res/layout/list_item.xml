@@ -5,36 +5,9 @@
     android:background="#f4f4f4"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="#e2deda"
-        android:gravity="center" >
-
-        <TextView
-            android:id="@+id/text_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Göteborg"
-            android:textColor="#000"
-            android:textSize="30sp"/>
-
-        <!--ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/logo_header"
-            android:src="@drawable/gbg_logo"
-            android:scaleType="centerCrop"
-            android:layout_alignTop="@+id/text_header"
-            android:layout_alignBottom="@+id/text_header"/-->
-
-    </RelativeLayout>
-
     <TextView
         android:id="@+id/lblListItem"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="17dip"
         android:textColor="#3546b7"
@@ -42,12 +15,5 @@
         android:paddingBottom="5dp"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
 
-
-
-    <ExpandableListView
-        android:id="@+id/lvExp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" />
 
 </LinearLayout>
