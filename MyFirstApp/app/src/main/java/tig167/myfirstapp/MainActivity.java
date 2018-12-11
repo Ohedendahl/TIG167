@@ -1,5 +1,6 @@
 package tig167.myfirstapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,14 +13,21 @@ import java.util.List;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
+
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -75,6 +83,14 @@ public class MainActivity extends Activity {
         listDataChild.put(listDataHeader.get(0), pressmeddelanden); // Header, Child data
         listDataChild.put(listDataHeader.get(1), polisen);
         listDataChild.put(listDataHeader.get(2), trafikinfo);
+    }
+
+    public void gotoSettings(View view) {
+        Intent intent = new Intent(this, Preferences.class);
+      //  EditText editText = (EditText) findViewById(R.id.editText);
+      //  String message = editText.getText().toString();
+      //  intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
     }
 
 }
