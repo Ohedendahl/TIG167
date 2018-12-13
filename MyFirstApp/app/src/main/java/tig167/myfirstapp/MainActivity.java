@@ -1,6 +1,30 @@
 package tig167.myfirstapp;
 
-import tig167.myfirstapp.VolleyPolice;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import tig167.myfirstapp.police.Handelser;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,15 +33,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import android.app.Activity;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import tig167.myfirstapp.VolleyPolice.HandelserChangeListener;
+import tig167.myfirstapp.VolleyPolice;
+
 
 public class MainActivity extends Activity {
 
+
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
+    private ArrayAdapter<Handelser> adapter;
+    private List<Handelser> handelser;
+    private MainActivity me;
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,28 +69,22 @@ public class MainActivity extends Activity {
 
         // setting list adapter
         expListView.setAdapter(listAdapter);
-        
-      /*
-        members = new ArrayList<>();
-        resetListView(members);
+
+        handelser = new ArrayList<>();
+        //resetListView(handelser);
 
         me = this;
 
         // register to listen to member updates in VolleyMember
-        VolleyMember.getInstance(this).addMemberChangeListener(new MemberChangeListener() {
+        VolleyPolice.getInstance(this).addHandelserChangeListener(new HandelserChangeListener() {
             @Override
-            public void onMemberChangeList(List<Member> members) {
-                resetListView(members);
-                ActivitySwitcher.showToast(me, "Members updated");
+            public void onHandelserChangeList(List<Handelser> handelser) {
+               // resetListView(members);
+               ActivitySwitcher.showToast(me, "Members updated");
             }
         });
 
-        ((TextView)findViewById(R.id.label)).setText(LOG_TAG);
-    }
-
-        *------
-
-        */
+      //  ((TextView)findViewById(R.id.label)).setText(LOG_TAG);
 
 }
 
@@ -100,5 +129,6 @@ public class MainActivity extends Activity {
       //  intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
+
 
 }

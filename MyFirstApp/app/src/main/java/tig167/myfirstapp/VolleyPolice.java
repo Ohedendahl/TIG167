@@ -96,7 +96,7 @@ public class VolleyPolice {
         void onHandelserChangeList(List<Handelser> handelser);
     }
 
-    public void addMHandelserChangeListener(HandelserChangeListener l) {
+    public void addHandelserChangeListener(HandelserChangeListener l) {
         listeners.add(l);
     }
 
