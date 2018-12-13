@@ -1,5 +1,6 @@
 package tig167.myfirstapp;
 
+import tig167.myfirstapp.VolleyPolice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +34,30 @@ public class MainActivity extends Activity {
 
         // setting list adapter
         expListView.setAdapter(listAdapter);
+        
+      /*
+        members = new ArrayList<>();
+        resetListView(members);
+
+        me = this;
+
+        // register to listen to member updates in VolleyMember
+        VolleyMember.getInstance(this).addMemberChangeListener(new MemberChangeListener() {
+            @Override
+            public void onMemberChangeList(List<Member> members) {
+                resetListView(members);
+                ActivitySwitcher.showToast(me, "Members updated");
+            }
+        });
+
+        ((TextView)findViewById(R.id.label)).setText(LOG_TAG);
     }
+
+        *------
+
+        */
+
+}
 
     /*
      * Preparing the list data

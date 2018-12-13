@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 public class HandelseParser {
 
-  public static List<Handelser> parse(String json) throws JSONException {
+  public static List<Handelser> jsonToHandelser(String json) throws JSONException {
 
     JSONArray jsonArray = new JSONArray(json);
     List<Handelser> handelser = new ArrayList<>();
@@ -22,14 +22,6 @@ public class HandelseParser {
       String datetime = jsonObject.getString("datetime");
       String summary = jsonObject.getString("summary");
       String url = jsonObject.getString("url");
-
-
-      /*JSONArray foodsJson = (JSONArray)jsonObject.get("food_pairing");
-      ArrayList<String> foodStrings = new ArrayList<>();
-
-      for(int j = 0; j < foodsJson.length(); j++) {
-        foodStrings.add(foodsJson.getString(j));
-      }*/
 
       handelser.add(new Handelser(datetime, summary, url, locationName));
 
