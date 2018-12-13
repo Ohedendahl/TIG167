@@ -1,9 +1,12 @@
 package tig167.myfirstapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.os.Bundle;
 
 public class Preferences extends AppCompatActivity {
 
@@ -12,12 +15,18 @@ public class Preferences extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
 
-        // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-       // String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
-        // Capture the layout's TextView and set the string as its text
         TextView textView = findViewById(R.id.info_settings);
-      //  textView.setText(message);
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("Preferences", 0);
+        SharedPreferences.Editor editor = pref.edit();
+
+        //exmpel nedan
+        editor.putString("Stad", "Göteborg");
+        editor.putBoolean("Pressmeddelanden", true);
+
+        editor.commit();
+
     }
+
 }
