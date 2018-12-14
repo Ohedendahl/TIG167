@@ -27,6 +27,7 @@ public class VolleyPolice {
         if (VolleyPolice == null) {
             VolleyPolice = new VolleyPolice(context);
         }
+
         return VolleyPolice;
     }
 
@@ -48,7 +49,9 @@ public class VolleyPolice {
             String summary = row.getString("summary");
             String url = row.getString("url");
 
-            handelserList.add(new Handelser(datetime, summary, url, locationName));
+            Handelser h = new Handelser(datetime, summary, url, locationName);
+            handelserList.add(h);
+
             } catch (JSONException e) {
                 ;
            }
@@ -69,8 +72,10 @@ public class VolleyPolice {
 
                     @Override
                     public void onResponse(JSONArray array) {
+                        Log.d(LOG_TAG, "onResponse()    got some JSON");
                         List<Handelser> handelser = jsonToHandelser(array);
                         for (HandelserChangeListener m : listeners) {
+                            Log.d(LOG_TAG, "onResponse()    call any vegetable");
                             m.onHandelserChangeList(handelser);
                         }
                     }
@@ -78,7 +83,11 @@ public class VolleyPolice {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(LOG_TAG, " cause: " + error.getCause().getMessage());
+                Log.d(LOG_TAG, " cause: " + error.getCause());
+                for (HandelserChangeListener m : listeners) {
+                    Log.d(LOG_TAG, "onResponse()    call any vegetable with NULL");
+                    m.onHandelserChangeList(null);
+                }
             }
         });
 
@@ -97,6 +106,7 @@ public class VolleyPolice {
     }
 
     public void addHandelserChangeListener(HandelserChangeListener l) {
+        Log.d(LOG_TAG, "onResponse()    got some JSON");
         listeners.add(l);
     }
 

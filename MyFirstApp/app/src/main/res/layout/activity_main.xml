@@ -57,10 +57,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|right"
-                    android:layout_marginRight="6dp"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginBottom="4dp"
+                    android:onClick="refreshList"
                     android:src="@drawable/refresh_white"
                     app:backgroundTint="#ffffff"
                     app:fabSize="normal" />
@@ -94,6 +95,8 @@
         android:scrollbars="vertical" />
 
     </RelativeLayout>
+
+
 
 </RelativeLayout>
 

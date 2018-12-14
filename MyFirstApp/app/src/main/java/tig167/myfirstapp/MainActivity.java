@@ -32,6 +32,8 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observer;
+
 import android.app.Activity;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
@@ -71,7 +73,7 @@ public class MainActivity extends Activity {
         expListView.setAdapter(listAdapter);
 
         handelser = new ArrayList<>();
-        //resetListView(handelser);
+        //resetexpListView(handelser);
 
         me = this;
 
@@ -79,14 +81,29 @@ public class MainActivity extends Activity {
         VolleyPolice.getInstance(this).addHandelserChangeListener(new HandelserChangeListener() {
             @Override
             public void onHandelserChangeList(List<Handelser> handelser) {
-               // resetListView(members);
-               ActivitySwitcher.showToast(me, "Members updated");
+                if (handelser==null) {
+                    Log.d(LOG_TAG, "   NEJ NEJ NEJ");
+                    return;
+                }
+
+                // resetexpListView(handelser);
+                List <String> polisgrejer = new ArrayList<>();
+                for (Handelser h : handelser) {
+                    polisgrejer.add(h.toString());
+                }
+                Log.d(LOG_TAG, "onHandelserChangeList()   Wowie Zowie:  " + handelser);
+                listDataChild.put(listDataHeader.get(1), polisgrejer);
+                listAdapter = new ExpandableListAdapter(MainActivity.this, listDataHeader, listDataChild);
+                expListView.setAdapter(listAdapter);
+
+                ActivitySwitcher.showToast(me, "Handelser updated");
             }
         });
+      //  VolleyPolice.getInstance(this).getHandelser();
 
-      //  ((TextView)findViewById(R.id.label)).setText(LOG_TAG);
+        //  ((TextView)findViewById(R.id.label)).setText(LOG_TAG);
 
-}
+    }
 
     /*
      * Preparing the list data
@@ -106,11 +123,10 @@ public class MainActivity extends Activity {
         pressmeddelanden.add("Gratis bira i stadshuset");
         pressmeddelanden.add("Håkan Hellström utsedd till tronarvinge; 'fan va soft'");
 
-
         List<String> polisen = new ArrayList<String>();
-        polisen.add("Inbrott Dalheimersgatan");
-        polisen.add("Gangsterz på Hisingen (som vanligt)");
-
+    //    polisen.add("Inbrott Dalheimersgatan");
+      //  polisen.add("Gangsterz på Hisingen (som vanligt)");
+        polisen.add("NO data yet");
 
         List<String> trafikinfo = new ArrayList<String>();
         trafikinfo.add("Olycka på Älvsborgsbron");
@@ -124,11 +140,35 @@ public class MainActivity extends Activity {
 
     public void gotoSettings(View view) {
         Intent intent = new Intent(this, Preferences.class);
-      //  EditText editText = (EditText) findViewById(R.id.editText);
-      //  String message = editText.getText().toString();
-      //  intent.putExtra(EXTRA_MESSAGE, message);
+        //  EditText editText = (EditText) findViewById(R.id.editText);
+        //  String message = editText.getText().toString();
+        //  intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
 
+    public void refreshList(View view) {
+        ActivitySwitcher.showToast(this, "Updating handelser");
+        VolleyPolice.getInstance(this).getHandelser();
+        //handelser.add();
+        System.out.println("Här är händelser: " + handelser);
 
+     //   public void setListAdapter (ExpandableListAdapter listAdapter){
+      //      this.listAdapter = listAdapter;
+       // }
+
+
+  /*  private void resetexpListView(List<Handelser> handelser) {
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        expListView.setAdapter(listAdapter);
+    }*/
+
+    /*private void resetexpListView(){
+
+        adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_expandable_list_item_1, handelser);
+        expListView.setAdapter(adapter);
+    }*/
+
+
+    }
 }
