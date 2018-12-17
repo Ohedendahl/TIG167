@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.os.Bundle;
 
@@ -27,6 +29,16 @@ public class Preferences extends AppCompatActivity {
 
         editor.commit();
 
+        String[] arraySpinner = new String[] {
+                "Göteborg", "Stockholm", "Malmö"
+        };
+        Spinner s = (Spinner) findViewById(R.id.spinner2);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.browser_link_context_header, arraySpinner);
+        adapter.setDropDownViewResource(android.R.layout.browser_link_context_header);
+        s.setAdapter(adapter);
     }
 
-}
+    }
+
+
