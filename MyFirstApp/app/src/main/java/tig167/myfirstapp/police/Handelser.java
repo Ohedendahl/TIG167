@@ -1,14 +1,15 @@
 package tig167.myfirstapp.police;
 
 
+import java.net.URL;
 
 public class Handelser {
   private String datetime;
   private String summary;
-  private String url;
+  private URL url;
   private String location;
 
-  public Handelser(String datetime, String summary, String url, String location) {
+  public Handelser(String datetime, String summary, URL url, String location) {
 
     this.datetime = datetime;
     this.summary = summary;
@@ -22,7 +23,7 @@ public class Handelser {
   public String summary() {
     return summary;
   }
-  public String url() {
+  public URL url() {
     return url;
   }
   public String location() {
@@ -34,7 +35,7 @@ public class Handelser {
   return new StringBuilder()
     .append("Tidpunkt: " + datetime)
     .append("\n")
-    .append("Beskrivning: " + summary)
+    .append("Beskrivning: " + summary + "\n")
     .append("\n")
     .append("Läs mer här: " + url)
     .append("\n")

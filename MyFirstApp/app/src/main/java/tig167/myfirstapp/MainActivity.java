@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
             @Override
             public void onHandelserChangeList(List<Handelser> handelser) {
                 if (handelser==null) {
-                    Log.d(LOG_TAG, "   NEJ NEJ NEJ");
+                    Log.d(LOG_TAG, "   Failed to fetch JSON");
                     return;
                 }
 

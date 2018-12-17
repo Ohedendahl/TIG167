@@ -50,11 +50,11 @@ public class VolleyPolice {
             String locationName = nestedLocation.getString("name");
             String datetime = row.getString("datetime");
             String summary = row.getString("summary");
-            String url = row.getString("url");
+            //String url = row.getString("url");
+            URL policeURL = new URL(row.getString("url"));
 
-            URL policeURL = new URL(url);
 
-            Handelser h = new Handelser(datetime, summary, url, locationName);
+            Handelser h = new Handelser(datetime, summary, policeURL, locationName);
             handelserList.add(h);
 
             } catch (JSONException e) {
