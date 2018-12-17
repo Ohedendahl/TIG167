@@ -9,6 +9,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
@@ -49,12 +52,16 @@ public class VolleyPolice {
             String summary = row.getString("summary");
             String url = row.getString("url");
 
+            URL policeURL = new URL(url);
+
             Handelser h = new Handelser(datetime, summary, url, locationName);
             handelserList.add(h);
 
             } catch (JSONException e) {
                 ;
-           }
+           } catch (MalformedURLException m) {
+                m.printStackTrace();
+            }
         }
         return handelserList;
     }

@@ -1,5 +1,7 @@
 package tig167.myfirstapp.police;
 
+
+
 public class Handelser {
   private String datetime;
   private String summary;
@@ -30,8 +32,6 @@ public class Handelser {
   @Override
   public String toString() {
   return new StringBuilder()
-    .append("Plats: " + location)
-    .append("\n")
     .append("Tidpunkt: " + datetime)
     .append("\n")
     .append("Beskrivning: " + summary)
