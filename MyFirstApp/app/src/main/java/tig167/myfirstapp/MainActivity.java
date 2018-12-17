@@ -83,6 +83,8 @@ public class MainActivity extends Activity {
             public void onHandelserChangeList(List<Handelser> handelser) {
                 if (handelser==null) {
                     Log.d(LOG_TAG, "   Failed to fetch JSON");
+                    //ActivitySwitcher.showToast.length_LONG(me, "No response from Polisen, try again", );
+                    Toast.makeText(me, "No response from Polisen, try again.", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -126,7 +128,7 @@ public class MainActivity extends Activity {
         List<String> polisen = new ArrayList<String>();
     //    polisen.add("Inbrott Dalheimersgatan");
       //  polisen.add("Gangsterz på Hisingen (som vanligt)");
-        polisen.add("NO data yet");
+        polisen.add("Ingen data att visa");
 
         List<String> trafikinfo = new ArrayList<String>();
         trafikinfo.add("Olycka på Älvsborgsbron");
