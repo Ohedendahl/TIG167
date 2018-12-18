@@ -69,16 +69,6 @@
             </FrameLayout>
         </android.support.constraint.ConstraintLayout>
 
-        <!--ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/gbg_logo"
-            android:src="@drawable/gbg_logo"
-            android:layout_alignTop="@+id/text_header"
-            android:layout_alignBottom="@+id/text_header"
-            android:adjustViewBounds="true"
-            android:layout_centerInParent="true"
-            android:scaleType="fitStart"/-->
 
     </RelativeLayout>
 

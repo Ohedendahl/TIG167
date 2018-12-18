@@ -79,20 +79,15 @@ public class MainActivity extends Activity {
         Log.d(LOG_TAG, "Här är inställningarna:" + stad + pressOnOff + poliusenOnOff + trafikOnOff + tidtabellOnOff);
 
 
-
-        // get the listview
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
-        // preparing list data
         prepareListData();
 
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
-        // setting list adapter
         expListView.setAdapter(listAdapter);
 
         handelser = new ArrayList<>();
-        //resetexpListView(handelser);
 
         me = this;
 
@@ -120,33 +115,24 @@ public class MainActivity extends Activity {
                 ActivitySwitcher.showToast(me, "Handelser updated");
             }
         });
-      //  VolleyPolice.getInstance(this).getHandelser();
-
-        //  ((TextView)findViewById(R.id.label)).setText(LOG_TAG);
 
     }
 
-    /*
-     * Preparing the list data
-     */
+
     private void prepareListData() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
-        // Adding child data
         listDataHeader.add("Pressmeddelanden");
         listDataHeader.add("Polisen");
         listDataHeader.add("Trafikinfo");
 
-        // Adding child data
         List<String> pressmeddelanden = new ArrayList<String>();
         pressmeddelanden.add("Löfven somnar på jobbet");
         pressmeddelanden.add("Gratis bira i stadshuset");
         pressmeddelanden.add("Håkan Hellström utsedd till tronarvinge; 'fan va soft'");
 
         List<String> polisen = new ArrayList<String>();
-    //    polisen.add("Inbrott Dalheimersgatan");
-      //  polisen.add("Gangsterz på Hisingen (som vanligt)");
         polisen.add("Ingen data att visa");
 
         List<String> trafikinfo = new ArrayList<String>();
@@ -154,16 +140,13 @@ public class MainActivity extends Activity {
         trafikinfo.add("Krock skapar köer på Avenyn");
 
 
-        listDataChild.put(listDataHeader.get(0), pressmeddelanden); // Header, Child data
+        listDataChild.put(listDataHeader.get(0), pressmeddelanden);
         listDataChild.put(listDataHeader.get(1), polisen);
         listDataChild.put(listDataHeader.get(2), trafikinfo);
     }
 
     public void gotoSettings(View view) {
         Intent intent = new Intent(this, Preferences.class);
-        //  EditText editText = (EditText) findViewById(R.id.editText);
-        //  String message = editText.getText().toString();
-        //  intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
 
@@ -172,24 +155,6 @@ public class MainActivity extends Activity {
         VolleyPolice.getInstance(this).getHandelser();
         //handelser.add();
         System.out.println("Här är händelser: " + handelser);
-
-     //   public void setListAdapter (ExpandableListAdapter listAdapter){
-      //      this.listAdapter = listAdapter;
-       // }
-
-
-  /*  private void resetexpListView(List<Handelser> handelser) {
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-        expListView.setAdapter(listAdapter);
-    }*/
-
-    /*private void resetexpListView(){
-
-        adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_expandable_list_item_1, handelser);
-        expListView.setAdapter(adapter);
-    }*/
-
 
     }
 }

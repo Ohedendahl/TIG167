@@ -4,8 +4,8 @@ public class Settings {
 
     public static String stad = "Göteborg";
 
-    public static void setStad (String stad) {
-        Settings.stad = stad;
+    public static void setStad (String newStad) {
+        stad = newStad;
     }
 
 
