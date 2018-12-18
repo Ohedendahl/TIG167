@@ -1,0 +1,16 @@
+<REQUEST>
+    <LOGIN authenticationkey="4254096466de431cb73c2e296e5b300d" />
+    <QUERY objecttype="Situation">
+        <FILTER>
+            <EQ name="Deviation.CountyNo" value='14' />
+            <ELEMENTMATCH>
+                <IN name="Deviation.MessageType" value="Trafikmeddelande, Olycka" />
+                <IN name="Deviation.SeverityCode" value='5' />
+            </ELEMENTMATCH>
+        </FILTER>
+        <INCLUDE>Deviation.SeverityCode</INCLUDE>
+        <INCLUDE>Deviation.Message</INCLUDE>
+        <INCLUDE>Deviation.MessageType</INCLUDE>
+        <INCLUDE>Deviation.LocationDescriptor</INCLUDE>
+    </QUERY>
+</REQUEST>

@@ -73,7 +73,7 @@ public class VolleyPolice {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                Settings.url,
+                Settings.urlPolice,
                 null,
                 new Response.Listener<JSONArray>() {
 
