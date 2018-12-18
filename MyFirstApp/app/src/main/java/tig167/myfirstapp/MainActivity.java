@@ -24,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import tig167.myfirstapp.Trafikverket.VolleyTraffic;
 import tig167.myfirstapp.police.Handelser;
 
 import android.content.Intent;
@@ -63,10 +64,20 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Preferences", 0);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("Stad", "Göteborg");
+        SharedPreferences.Editor prefEditor = pref.edit();
 
-        editor.apply();
+
+        String stad = pref.getString("stad", "ingen stad sparad");
+        Boolean pressOnOff = pref.getBoolean("press", true);
+        Boolean poliusenOnOff = pref.getBoolean("polisen", false);
+        Boolean trafikOnOff = pref.getBoolean("trafik", true);
+        Boolean tidtabellOnOff = pref.getBoolean("tidtabell", false);
+
+        Settings.setStad(stad);
+
+
+        Log.d(LOG_TAG, "Här är inställningarna:" + stad + pressOnOff + poliusenOnOff + trafikOnOff + tidtabellOnOff);
+
 
 
         // get the listview
@@ -101,7 +112,7 @@ public class MainActivity extends Activity {
                 for (Handelser h : handelser) {
                     polisgrejer.add(h.toString());
                 }
-                Log.d(LOG_TAG, "onHandelserChangeList()   Wowie Zowie:  " + handelser);
+                //Log.d(LOG_TAG, "onHandelserChangeList()   Wowie Zowie:  " + handelser);
                 listDataChild.put(listDataHeader.get(1), polisgrejer);
                 listAdapter = new ExpandableListAdapter(MainActivity.this, listDataHeader, listDataChild);
                 expListView.setAdapter(listAdapter);

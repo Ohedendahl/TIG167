@@ -10,8 +10,13 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
@@ -36,78 +41,98 @@ public class VolleyTraffic {
     }
 
     private VolleyTraffic(Context context) {
-        listeners = new ArrayList<>();
+        //listeners = new ArrayList<>();
         this.context = context;
     }
 
 
-    private List<TrafficEvents> jsonToTrafficEvents(JSONArray array) {
-        List<TrafficEvents> TrafficEventsList = new ArrayList<>();
-
-        for(int i = 0; i < array.length(); i++) {
-            try {
 
 
 
-                TrafficEvents t = new TrafficEvents(messagetype, summary, location);
-                TrafficEventsList.add(t);
-
-            } catch (JSONException e) {
-                ;
-            } catch (MalformedURLException m) {
-                m.printStackTrace();
-            }
-        }
-        return TrafficEventsList;
-    }
 
     public void getTrafficEvents() {
+
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        StringRequest stringRequest = new StringRequest(
-                Request.Method.POST,
-                Settings.urlTrafficEvents,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+        try
+        {
+            String requestXml = new String(Files.readAllBytes(Paths.get("TrafficEventsRequests.xml")));
+
+            URL url = new URL(Settings.urlTrafficEvents);
+            URLConnection con = url.openConnection();
+            // specify that we will send output and accept input
+            con.setDoInput(true);
+            con.setDoOutput(true);
+            con.setConnectTimeout(20000);
+            con.setReadTimeout(20000);
+            con.setUseCaches (false);
+            con.setDefaultUseCaches (false);
+            // tell the web server what we are sending
+            con.setRequestProperty ("Content-Type", "text/xml");
+            OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
+            writer.write(requestXml);
+            writer.flush();
+            writer.close();
+            // reading the response
+            InputStreamReader reader = new InputStreamReader(con.getInputStream());
+            StringBuilder buf = new StringBuilder();
+            char[] cbuf = new char[2048];
+            int num;
+            while ( -1 != (num=reader.read(cbuf)))
+            {
+                buf.append( cbuf, 0, num );
+            }
+            String result = buf.toString();
+            //System.err.println( "\nResponse from server after POST:\n" + result);
+
+            JSONObject obj = new JSONObject(result);
+            JSONArray arr = obj.getJSONObject("RESPONSE").getJSONArray("RESULT");
+
+
+            for(int i=0; i<arr.length();i++) {
+
+                JSONObject obj2 = arr.getJSONObject(i);
+                JSONArray situation = obj2.getJSONArray("Situation");
+
+                for(int j=0; j<situation.length();j++) {
+
+                    JSONObject obj3 = situation.getJSONObject(j);
+                    JSONArray deviation = obj3.getJSONArray("Deviation");
+
+                    for(int k=0; k<deviation.length();k++) {
+
+                        JSONObject objects = deviation.getJSONObject(k);
+
+                        //System.out.println(objects);
+                        String messagetype = objects.optString("MessageType");
+                        String message = objects.optString("Message");
+                        String locationdescriptor = objects.optString("LocationDescriptor");
+                        Log.d(LOG_TAG, "Beskrivning: " + message);
+                        Log.d(LOG_TAG, "Typ: " + messagetype);
+                        Log.d(LOG_TAG, "Plats: " + locationdescriptor);
+
 
                     }
-                })
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.POST,
-                Settings.urlTrafficEvents,
-                null,
-                new Response.Listener<JSONArray>() {
-
-                    @Override
-                    public void onResponse(JSONArray array) {
-                        Log.d(LOG_TAG, "onResponse()    got some JSON");
-                        List<TrafficEvents> TrafficEvents = jsonToTrafficEvents(array);
-                        for (HandelserChangeListener m : listeners) {
-                            Log.d(LOG_TAG, "onResponse()    call any vegetable");
-                            m.onHandelserChangeList(handelser);
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(LOG_TAG, " cause: " + error.getCause());
-                for (HandelserChangeListener m : listeners) {
-                    Log.d(LOG_TAG, "onResponse()    call any vegetable with NULL");
-                    m.onHandelserChangeList(null);
                 }
             }
-        });
+        }
+        catch(Throwable t)
+        {
+            t.printStackTrace(System.out);
+        }
+
+
 
         // Add the request to the RequestQueue.
-        queue.add(jsonArrayRequest);
+       // queue.add(stringRequest);
     }
+
+
 
     /******************************************
      HandelserChangeListener
      ******************************************/
+    /*
 
     private List<HandelserChangeListener> listeners;
 
@@ -120,6 +145,6 @@ public class VolleyTraffic {
         listeners.add(l);
     }
 
-
+    */
 
 }

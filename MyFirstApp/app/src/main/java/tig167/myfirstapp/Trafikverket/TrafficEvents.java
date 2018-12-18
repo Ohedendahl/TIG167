@@ -20,7 +20,7 @@ public class TrafficEvents {
 
         public String location() {return location;}
 
-
+        /*
         @Override
         public String toString() {
             return new StringBuilder()
@@ -33,7 +33,7 @@ public class TrafficEvents {
                     .toString();
         }
 
-
+        */
 
     }
 

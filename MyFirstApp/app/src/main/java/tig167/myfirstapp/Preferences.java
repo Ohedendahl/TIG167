@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 public class Preferences extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,13 +22,18 @@ public class Preferences extends AppCompatActivity {
         TextView textView = findViewById(R.id.info_settings);
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Preferences", 0);
-        SharedPreferences.Editor editor = pref.edit();
+        SharedPreferences.Editor prefEditor = pref.edit();
 
-        //exmpel nedan
-        editor.putString("Stad", "Göteborg");
-        editor.putBoolean("Pressmeddelanden", true);
 
-        editor.commit();
+        prefEditor.putString("stad", "Stockholm");
+        prefEditor.putBoolean("press", false);
+        prefEditor.putBoolean("polisen", true);
+        prefEditor.putBoolean("trafik", true);
+        prefEditor.putBoolean("tidtabell", false);
+
+
+        prefEditor.apply();
+
 
         String[] arraySpinner = new String[] {
                 "Göteborg", "Stockholm", "Malmö"
@@ -39,6 +45,5 @@ public class Preferences extends AppCompatActivity {
         s.setAdapter(adapter);
     }
 
-    }
-
+}
 
