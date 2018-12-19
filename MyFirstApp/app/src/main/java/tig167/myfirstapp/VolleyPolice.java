@@ -2,6 +2,7 @@ package tig167.myfirstapp;
 
 import tig167.myfirstapp.police.Handelser;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +26,8 @@ public class VolleyPolice {
 
     private static VolleyPolice VolleyPolice;
     private Context context;
+    SharedPreferences pref;
+   // SharedPreferences.Editor prefEditor = pref.edit();
 
     public static synchronized VolleyPolice getInstance(Context context) {
         if (VolleyPolice == null) {
@@ -37,7 +40,9 @@ public class VolleyPolice {
     private VolleyPolice(Context context) {
         listeners = new ArrayList<>();
         this.context = context;
+        pref = context.getApplicationContext().getSharedPreferences("Preferences", 0);
     }
+
 
 
     private List<Handelser> jsonToHandelser(JSONArray array) {
@@ -71,9 +76,11 @@ public class VolleyPolice {
     public void getHandelser() {
         RequestQueue queue = Volley.newRequestQueue(context);
 
+        Settings s = new Settings();
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                Settings.urlPolice,
+                pref.getString("policeURL", "ingen hittades"),
                 null,
                 new Response.Listener<JSONArray>() {
 

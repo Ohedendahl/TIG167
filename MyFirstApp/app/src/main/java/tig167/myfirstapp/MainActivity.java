@@ -43,6 +43,7 @@ import tig167.myfirstapp.VolleyPolice.HandelserChangeListener;
 import tig167.myfirstapp.VolleyPolice;
 
 
+
 public class MainActivity extends Activity {
 
 
@@ -73,7 +74,8 @@ public class MainActivity extends Activity {
         Boolean trafikOnOff = pref.getBoolean("trafik", true);
         Boolean tidtabellOnOff = pref.getBoolean("tidtabell", false);
 
-        Settings.setStad(stad);
+        Settings s = new Settings();
+        s.setStad(stad);
 
 
         Log.d(LOG_TAG, "Här är inställningarna:" + stad + pressOnOff + poliusenOnOff + trafikOnOff + tidtabellOnOff);
@@ -115,7 +117,8 @@ public class MainActivity extends Activity {
                 ActivitySwitcher.showToast(me, "Handelser updated");
             }
         });
-
+        TextView headerText = (TextView) findViewById(R.id.text_header);
+        headerText.setText(pref.getString("stad", "ingen stad hittades"));
     }
 
 
@@ -150,11 +153,13 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+
+
     public void refreshList(View view) {
         ActivitySwitcher.showToast(this, "Updating handelser");
         VolleyPolice.getInstance(this).getHandelser();
         //handelser.add();
-        System.out.println("Här är händelser: " + handelser);
+        //Log.d(LOG_TAG, "Här är url:" + urlPolice);
 
     }
 }
