@@ -19,6 +19,7 @@ import java.util.List;
 
 public class Preferences extends AppCompatActivity {
 
+
     private Preferences me;
 
     @Override
@@ -47,44 +48,28 @@ public class Preferences extends AppCompatActivity {
         s.setSelection(pref.getInt("valSpinner",0));
 
 
-        String stadSpinner = s.getSelectedItem().toString();
-        Log.d("Här är stad från Spinner", stadSpinner);
-
-
-        prefEditor.putString("stad", stadSpinner); //kom ihåg spinner
-        prefEditor.putString("policeURL", "https://polisen.se/api/events?locationname=" + stadSpinner);
-
-  //      prefEditor.putBoolean("polisen", true);
-//        prefEditor.putBoolean("trafik", true);
-
-
-
-        prefEditor.apply();
-
-
         checkBoxPress.setChecked(pref.getBoolean("pressbox", false));
         checkBoxPolice.setChecked(pref.getBoolean("polisbox", false));
         checkBoxTraffic.setChecked(pref.getBoolean("trafikbox", false));
-
-
-
 
     }
 
     public void saveSettings(View view){
 
-
         final CheckBox checkBoxPress = (CheckBox) findViewById(R.id.pressCheck);
         final CheckBox checkBoxPolice = (CheckBox) findViewById(R.id.polisenCheck);
         final CheckBox checkBoxTraffic = (CheckBox) findViewById(R.id.trafikinfoCheck);
+
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Preferences", 0);
         SharedPreferences.Editor prefEditor = pref.edit();
         Spinner s = (Spinner) findViewById(R.id.spinner2);
         int positionSpinner = s.getSelectedItemPosition();
+
         prefEditor.putInt("valSpinner",positionSpinner);
         String stadSpinner = s.getSelectedItem().toString();
         prefEditor.putString("stad", stadSpinner);
+        prefEditor.putString("policeURL", "https://polisen.se/api/events?locationname=" + stadSpinner);
 
         if (checkBoxPress.isChecked()) {
             prefEditor.putBoolean("pressbox", true);

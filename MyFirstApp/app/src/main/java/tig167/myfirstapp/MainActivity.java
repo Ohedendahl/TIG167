@@ -78,9 +78,6 @@ public class MainActivity extends Activity {
         s.setStad(stad);
 
 
-        Log.d(LOG_TAG, "Här är inställningarna:" + stad + pressOnOff + poliusenOnOff + trafikOnOff + tidtabellOnOff);
-
-
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
         prepareListData();
@@ -110,7 +107,12 @@ public class MainActivity extends Activity {
                     polisgrejer.add(h.toString());
                 }
                 //Log.d(LOG_TAG, "onHandelserChangeList()   Wowie Zowie:  " + handelser);
-                listDataChild.put(listDataHeader.get(1), polisgrejer);
+                try {
+                    listDataChild.put(listDataHeader.get(1), polisgrejer);
+                } catch ( IndexOutOfBoundsException e ) {
+                    listDataChild.put(listDataHeader.get(0), polisgrejer);
+                }
+
                 listAdapter = new ExpandableListAdapter(MainActivity.this, listDataHeader, listDataChild);
                 expListView.setAdapter(listAdapter);
 
@@ -119,16 +121,34 @@ public class MainActivity extends Activity {
         });
         TextView headerText = (TextView) findViewById(R.id.text_header);
         headerText.setText(pref.getString("stad", "ingen stad hittades"));
+
+
+        if (!pref.getBoolean("pressbox", false)) {
+            listDataHeader.remove("Pressmeddelanden");
+        }
+
+        if (!pref.getBoolean("polisbox", false)) {
+            listDataHeader.remove("Polisen");
+        }
+
+        if (!pref.getBoolean("trafikbox", false)) {
+            listDataHeader.remove("Trafikinfo");
+        }
+
     }
 
 
     private void prepareListData() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("Preferences", 0);
+        SharedPreferences.Editor prefEditor = pref.edit();
+
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
         listDataHeader.add("Pressmeddelanden");
         listDataHeader.add("Polisen");
         listDataHeader.add("Trafikinfo");
+
 
         List<String> pressmeddelanden = new ArrayList<String>();
         pressmeddelanden.add("Löfven somnar på jobbet");
@@ -146,6 +166,8 @@ public class MainActivity extends Activity {
         listDataChild.put(listDataHeader.get(0), pressmeddelanden);
         listDataChild.put(listDataHeader.get(1), polisen);
         listDataChild.put(listDataHeader.get(2), trafikinfo);
+
+
     }
 
     public void gotoSettings(View view) {
@@ -156,10 +178,12 @@ public class MainActivity extends Activity {
 
 
     public void refreshList(View view) {
-        ActivitySwitcher.showToast(this, "Updating handelser");
-        VolleyPolice.getInstance(this).getHandelser();
-        //handelser.add();
-        //Log.d(LOG_TAG, "Här är url:" + urlPolice);
+       // if (listDataHeader.size() != 0) {
+            ActivitySwitcher.showToast(this, "Updating handelser");
+            VolleyPolice.getInstance(this).getHandelser();
+       // }   else {
+         //   ActivitySwitcher.showToast(this, "Nothing to update");
+       // }
 
     }
 }
