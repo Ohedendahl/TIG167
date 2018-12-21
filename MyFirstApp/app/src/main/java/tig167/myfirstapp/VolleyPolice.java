@@ -4,6 +4,8 @@ import tig167.myfirstapp.police.Handelser;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -55,15 +57,13 @@ public class VolleyPolice {
             String locationName = nestedLocation.getString("name");
             String datetime = row.getString("datetime");
             String summary = row.getString("summary");
-            //String url = row.getString("url");
             URL policeURL = new URL(row.getString("url"));
-
 
             Handelser h = new Handelser(datetime, summary, policeURL, locationName);
             handelserList.add(h);
 
             } catch (JSONException e) {
-                ;
+                e.printStackTrace();
            } catch (MalformedURLException m) {
                 m.printStackTrace();
             }
@@ -75,8 +75,6 @@ public class VolleyPolice {
 
     public void getHandelser() {
         RequestQueue queue = Volley.newRequestQueue(context);
-
-        Settings s = new Settings();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -105,6 +103,11 @@ public class VolleyPolice {
             }
         });
 
+        // Adds timeout to JSON request
+        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         // Add the request to the RequestQueue.
         queue.add(jsonArrayRequest);
     }
