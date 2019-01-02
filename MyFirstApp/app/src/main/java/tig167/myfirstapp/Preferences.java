@@ -27,7 +27,6 @@ public class Preferences extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
 
-        final CheckBox checkBoxPress = (CheckBox) findViewById(R.id.pressCheck);
         final CheckBox checkBoxPolice = (CheckBox) findViewById(R.id.polisenCheck);
         final CheckBox checkBoxTraffic = (CheckBox) findViewById(R.id.trafikinfoCheck);
 
@@ -47,8 +46,6 @@ public class Preferences extends AppCompatActivity {
         s.setAdapter(adapter);
         s.setSelection(pref.getInt("valSpinner",0));
 
-
-        checkBoxPress.setChecked(pref.getBoolean("pressbox", false));
         checkBoxPolice.setChecked(pref.getBoolean("polisbox", false));
         checkBoxTraffic.setChecked(pref.getBoolean("trafikbox", false));
 
@@ -56,7 +53,6 @@ public class Preferences extends AppCompatActivity {
 
     public void saveSettings(View view){
 
-        final CheckBox checkBoxPress = (CheckBox) findViewById(R.id.pressCheck);
         final CheckBox checkBoxPolice = (CheckBox) findViewById(R.id.polisenCheck);
         final CheckBox checkBoxTraffic = (CheckBox) findViewById(R.id.trafikinfoCheck);
 
@@ -71,12 +67,6 @@ public class Preferences extends AppCompatActivity {
         prefEditor.putString("stad", stadSpinner);
         prefEditor.putString("policeURL", "https://polisen.se/api/events?locationname=" + stadSpinner);
 
-        if (checkBoxPress.isChecked()) {
-            prefEditor.putBoolean("pressbox", true);
-        }
-        else {
-            prefEditor.putBoolean("pressbox", false);
-        }
 
         if (checkBoxPolice.isChecked()) {
             prefEditor.putBoolean("polisbox", true);

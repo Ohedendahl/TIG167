@@ -67,15 +67,8 @@ public class MainActivity extends Activity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Preferences", 0);
         SharedPreferences.Editor prefEditor = pref.edit();
 
-
-        String stad = pref.getString("stad", "ingen stad sparad");
-        Boolean pressOnOff = pref.getBoolean("press", true);
         Boolean poliusenOnOff = pref.getBoolean("polisen", false);
         Boolean trafikOnOff = pref.getBoolean("trafik", true);
-        Boolean tidtabellOnOff = pref.getBoolean("tidtabell", false);
-
-        Settings s = new Settings();
-        s.setStad(stad);
 
 
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
@@ -96,36 +89,31 @@ public class MainActivity extends Activity {
             public void onHandelserChangeList(List<Handelser> handelser) {
                 if (handelser==null) {
                     Log.d(LOG_TAG, "   Failed to fetch JSON");
-                    //ActivitySwitcher.showToast.length_LONG(me, "No response from Polisen, try again", );
-                    Toast.makeText(me, "No response from Polisen, try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(me, "Inget svar hos Polisen, försök igen.", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                // resetexpListView(handelser);
                 List <String> polisgrejer = new ArrayList<>();
                 for (Handelser h : handelser) {
                     polisgrejer.add(h.toString());
                 }
                 //Log.d(LOG_TAG, "onHandelserChangeList()   Wowie Zowie:  " + handelser);
-                try {
-                    listDataChild.put(listDataHeader.get(1), polisgrejer);
-                } catch ( IndexOutOfBoundsException e ) {
+               try {
                     listDataChild.put(listDataHeader.get(0), polisgrejer);
+                } catch ( IndexOutOfBoundsException e ) {
+                   Log.d(LOG_TAG, "något var fel med index: " + e);
                 }
 
                 listAdapter = new ExpandableListAdapter(MainActivity.this, listDataHeader, listDataChild);
                 expListView.setAdapter(listAdapter);
 
-                ActivitySwitcher.showToast(me, "Handelser updated");
+                ActivitySwitcher.showToast(me, "Händelser uppdaterade");
             }
         });
         TextView headerText = (TextView) findViewById(R.id.text_header);
         headerText.setText(pref.getString("stad", "ingen stad hittades"));
 
 
-        if (!pref.getBoolean("pressbox", false)) {
-            listDataHeader.remove("Pressmeddelanden");
-        }
 
         if (!pref.getBoolean("polisbox", false)) {
             listDataHeader.remove("Polisen");
@@ -145,15 +133,8 @@ public class MainActivity extends Activity {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
-        listDataHeader.add("Pressmeddelanden");
         listDataHeader.add("Polisen");
         listDataHeader.add("Trafikinfo");
-
-
-        List<String> pressmeddelanden = new ArrayList<String>();
-        pressmeddelanden.add("Löfven somnar på jobbet");
-        pressmeddelanden.add("Gratis bira i stadshuset");
-        pressmeddelanden.add("Håkan Hellström utsedd till tronarvinge; 'fan va soft'");
 
         List<String> polisen = new ArrayList<String>();
         polisen.add("Ingen data att visa");
@@ -163,10 +144,8 @@ public class MainActivity extends Activity {
         trafikinfo.add("Krock skapar köer på Avenyn");
 
 
-        listDataChild.put(listDataHeader.get(0), pressmeddelanden);
-        listDataChild.put(listDataHeader.get(1), polisen);
-        listDataChild.put(listDataHeader.get(2), trafikinfo);
-
+        listDataChild.put(listDataHeader.get(0), polisen);
+        listDataChild.put(listDataHeader.get(1), trafikinfo);
 
     }
 
@@ -176,14 +155,16 @@ public class MainActivity extends Activity {
     }
 
 
-
     public void refreshList(View view) {
-       // if (listDataHeader.size() != 0) {
-            ActivitySwitcher.showToast(this, "Updating handelser");
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("Preferences", 0);
+        SharedPreferences.Editor prefEditor = pref.edit();
+
+       if (pref.getBoolean("polisbox", false)) {
+            ActivitySwitcher.showToast(this, "Uppdaterar händelser, var god vänta");
             VolleyPolice.getInstance(this).getHandelser();
-       // }   else {
-         //   ActivitySwitcher.showToast(this, "Nothing to update");
-       // }
+        }   else {
+            ActivitySwitcher.showToast(this, "Inget att uppdatera");
+        }
 
     }
 }

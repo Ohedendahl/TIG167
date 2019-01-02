@@ -104,10 +104,12 @@ public class VolleyPolice {
         });
 
         // Adds timeout to JSON request
+
         jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(
                 20000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         // Add the request to the RequestQueue.
         queue.add(jsonArrayRequest);
     }

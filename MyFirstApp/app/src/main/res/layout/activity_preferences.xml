@@ -40,23 +40,11 @@
         android:text="Välj vilka uppdateringar du vill ha"
         android:textSize="30sp" />
 
-
-    <CheckBox
-        android:id="@+id/pressCheck"
-        android:layout_width="280dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/updates_text"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="8dp"
-        android:text="Pressmeddelanden"
-        android:textSize="22sp" />
-
     <CheckBox
         android:id="@+id/polisenCheck"
         android:layout_width="280dp"
         android:layout_height="30dp"
-        android:layout_below="@+id/pressCheck"
+        android:layout_below="@+id/updates_text"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:text="Polisen"
