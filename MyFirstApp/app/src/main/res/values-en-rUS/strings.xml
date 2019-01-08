@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyFirstApp</string>
+    <string name="police_text">Police</string>
+    <string name="traffic_text">Traffic</string>
+    <string name="stockholm_header">Stockholm</string>
+    <string name="goteborg_header">Gothenburg</string>
+    <string name="malmo_header">Malmo</string>
+    <string name="settings_page_header">Settings</string>
+    <string name="choose_location_text">Choose your location</string>
+    <string name="choose_updates_text">Choose which updates you want</string>
+    <string name="save_button_text">Save</string>
+</resources>

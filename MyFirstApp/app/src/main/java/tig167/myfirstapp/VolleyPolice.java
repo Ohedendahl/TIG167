@@ -29,7 +29,6 @@ public class VolleyPolice {
     private static VolleyPolice VolleyPolice;
     private Context context;
     SharedPreferences pref;
-   // SharedPreferences.Editor prefEditor = pref.edit();
 
     public static synchronized VolleyPolice getInstance(Context context) {
         if (VolleyPolice == null) {
@@ -70,8 +69,6 @@ public class VolleyPolice {
         }
         return handelserList;
     }
-    // The code below is "slightly" (nudge nudge) based on:
-    //   https://developer.android.com/training/volley/request.html
 
     public void getHandelser() {
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -113,10 +110,6 @@ public class VolleyPolice {
         // Add the request to the RequestQueue.
         queue.add(jsonArrayRequest);
     }
-
-    /******************************************
-     HandelserChangeListener
-     ******************************************/
 
     private List<HandelserChangeListener> listeners;
 

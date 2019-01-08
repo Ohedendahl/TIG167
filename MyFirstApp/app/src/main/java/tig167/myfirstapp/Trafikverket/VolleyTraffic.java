@@ -2,28 +2,20 @@ package tig167.myfirstapp.Trafikverket;
 
 import android.content.Context;
 import android.util.Log;
-import com.android.volley.Request;
+
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import tig167.myfirstapp.Settings;
 
 public class VolleyTraffic {
 
@@ -58,8 +50,9 @@ public class VolleyTraffic {
         {
             String requestXml = new String(Files.readAllBytes(Paths.get("TrafficEventsRequests.xml")));
 
-            URL url = new URL(Settings.urlTrafficEvents);
+             URL url = new URL("www.dummyURL.com"); //Get URL from Sharedprefs instead
             URLConnection con = url.openConnection();
+
             // specify that we will send output and accept input
             con.setDoInput(true);
             con.setDoOutput(true);

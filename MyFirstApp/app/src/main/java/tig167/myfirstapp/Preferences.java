@@ -21,27 +21,25 @@ public class Preferences extends AppCompatActivity {
 
 
     private Preferences me;
+    SharedPreferences pref;
+    SharedPreferences.Editor prefEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
 
-        final CheckBox checkBoxPolice = (CheckBox) findViewById(R.id.polisenCheck);
-        final CheckBox checkBoxTraffic = (CheckBox) findViewById(R.id.trafikinfoCheck);
+        final CheckBox checkBoxPolice = findViewById(R.id.polisenCheck);
+        final CheckBox checkBoxTraffic = findViewById(R.id.trafikinfoCheck);
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("Preferences", 0);
-        SharedPreferences.Editor prefEditor = pref.edit();
+        pref = getApplicationContext().getSharedPreferences("Preferences", 0);
 
-        Spinner s = (Spinner) findViewById(R.id.spinner2);
-        int positionSpinner = s.getSelectedItemPosition();
-        Intent intent = getIntent();
-        TextView textView = findViewById(R.id.info_settings);
+        Spinner s = findViewById(R.id.spinner2);
 
         List<String> targetList = new ArrayList<>();
-        targetList.add(0, "Göteborg");
-        targetList.add(1, "Stockholm");
-        targetList.add(2, "Malmö");
+        targetList.add(0, getString(R.string.goteborg_header));
+        targetList.add(1, getString(R.string.stockholm_header));
+        targetList.add(2, getString(R.string.malmo_header));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, targetList);
         s.setAdapter(adapter);
         s.setSelection(pref.getInt("valSpinner",0));
@@ -53,12 +51,12 @@ public class Preferences extends AppCompatActivity {
 
     public void saveSettings(View view){
 
-        final CheckBox checkBoxPolice = (CheckBox) findViewById(R.id.polisenCheck);
-        final CheckBox checkBoxTraffic = (CheckBox) findViewById(R.id.trafikinfoCheck);
+        pref = getApplicationContext().getSharedPreferences("Preferences", 0);
+        prefEditor = pref.edit();
 
+        final CheckBox checkBoxPolice = findViewById(R.id.polisenCheck);
+        final CheckBox checkBoxTraffic = findViewById(R.id.trafikinfoCheck);
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("Preferences", 0);
-        SharedPreferences.Editor prefEditor = pref.edit();
         Spinner s = (Spinner) findViewById(R.id.spinner2);
         int positionSpinner = s.getSelectedItemPosition();
 

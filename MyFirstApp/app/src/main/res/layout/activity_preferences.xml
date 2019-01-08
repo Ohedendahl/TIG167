@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:text="Välj din plats"
+        android:text="@string/choose_location_text"
         android:textSize="30sp" />
 
 
@@ -37,7 +37,7 @@
         android:layout_marginStart="-11dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="120dp"
-        android:text="Välj vilka uppdateringar du vill ha"
+        android:text="@string/choose_updates_text"
         android:textSize="30sp" />
 
     <CheckBox
@@ -47,7 +47,7 @@
         android:layout_below="@+id/updates_text"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
-        android:text="Polisen"
+        android:text="@string/police_text"
         android:textSize="22sp" />
 
     <CheckBox
@@ -57,7 +57,7 @@
         android:layout_below="@+id/polisenCheck"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
-        android:text="Trafikinfo"
+        android:text="@string/traffic_text"
         android:textSize="22sp" />
 
 
@@ -69,7 +69,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="37dp"
         android:layout_marginBottom="38dp"
-        android:text="Spara"
+        android:text="@string/save_button_text"
         android:onClick="saveSettings"/>
 
 
