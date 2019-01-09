@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_mountains"
-    >
+    xmlns:bind="http://schemas.android.com/tools"
+    android:background="@drawable/background_mountains">
 
     <RelativeLayout
         android:id="@+id/header"
@@ -26,6 +26,7 @@
             android:textSize="45sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -72,6 +73,17 @@
 
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/loading_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="113dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        />
+
     <RelativeLayout
         android:id="@+id/content"
         android:layout_width="fill_parent"
@@ -89,7 +101,7 @@
 
 
 
-</RelativeLayout>
 
+</RelativeLayout>
 
 

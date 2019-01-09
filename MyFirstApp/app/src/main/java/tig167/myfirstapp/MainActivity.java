@@ -59,7 +59,6 @@
         HashMap<String, List<String>> listDataChild;
 
         SharedPreferences pref;
-        SharedPreferences.Editor prefEditor;
 
         Boolean policeOnOff;
         Boolean trafficOnOff;
@@ -83,15 +82,9 @@
 
             me = this;
 
-
             VolleyPolice.getInstance(this).addHandelserChangeListener(new HandelserChangeListener() {
                 @Override
                 public void onHandelserChangeList(List<Handelser> handelser) {
-                    if (handelser==null) {
-                        Log.d(LOG_TAG, "   Failed to fetch JSON");
-                        Toast.makeText(me, "Inget svar hos Polisen, försök igen.", Toast.LENGTH_LONG).show();
-                        return;
-                    }
 
                     List <String> polisgrejer = new ArrayList<>();
                     for (Handelser h : handelser) {
@@ -108,7 +101,8 @@
                     listAdapter = new ExpandableListAdapter(MainActivity.this, listDataHeader, listDataChild);
                     expListView.setAdapter(listAdapter);
 
-                    ActivitySwitcher.showToast(me, "Händelser uppdaterade");
+                    ActivitySwitcher.showToast(me, me.getResources().getString(R.string.toast_updatecomplete));
+                    findViewById(R.id.loading_circle).setVisibility(View.GONE);
                 }
             });
             TextView headerText = findViewById(R.id.text_header);
@@ -133,11 +127,9 @@
                 int polisIndex = listDataHeader.indexOf(getString(R.string.police_text));
 
                 List<String> polisen = new ArrayList<String>();
-                polisen.add("Ingen data att visa");
+                polisen.add(getString(R.string.no_policedata));
 
                 listDataChild.put(listDataHeader.get(polisIndex), polisen);
-                Log.d(LOG_TAG, "här är bolean polisn:" + policeOnOff);
-
             }
 
             if (trafficOnOff) {
@@ -149,7 +141,6 @@
                 trafikinfo.add("Krock skapar köer på Avenyn");
 
                 listDataChild.put(listDataHeader.get(trafikIndex), trafikinfo);
-                Log.d(LOG_TAG, "här är bolean trafik:" + trafficOnOff);
             }
 
         }
@@ -162,14 +153,13 @@
 
         public void refreshList(View view) {
             policeOnOff = pref.getBoolean("polisbox", false);
+            findViewById(R.id.loading_circle).setVisibility(View.VISIBLE);
 
            if (policeOnOff) {
-                ActivitySwitcher.showToast(this, "Uppdaterar händelser, var god vänta.");
-               ActivitySwitcher.showToast(this, "Uppdaterar händelser, var god vänta..");
-               ActivitySwitcher.showToast(this, "Uppdaterar händelser, var god vänta...");
+                ActivitySwitcher.showToast(this, this.getResources().getString(R.string.toast_updating));
                 VolleyPolice.getInstance(this).getHandelser();
             }   else {
-                ActivitySwitcher.showToast(this, "Inget att uppdatera");
+                ActivitySwitcher.showToast(this, this.getResources().getString(R.string.toast_noupdate));
             }
 
         }

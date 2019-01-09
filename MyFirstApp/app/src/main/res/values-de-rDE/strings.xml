@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyFirstApp</string>
+    <string name="police_text">Polizei</string>
+    <string name="traffic_text">Verkehrsinfos</string>
+    <string name="stockholm_header">Stockholm</string>
+    <string name="goteborg_header">Göteborg</string>
+    <string name="malmo_header">Malmö</string>
+    <string name="settings_page_header">" Einstellungen"</string>
+    <string name="choose_location_text">" Wählen Sie Ihren Standort"</string>
+    <string name="choose_updates_text">" Wählen Sie die gewünschten Updates aus"</string>
+    <string name="save_button_text">" Speichern"</string>
+    <string name="toast_updating">" Ereignisse werden aktualisiert, bitte warten"</string>
+    <string name="no_policedata">" Keine Daten zum Anzeigen"</string>
+    <string name="toast_updatecomplete">" Ereignisse aktualisiert"</string>
+    <string name="toast_noupdate">" Nichts zu aktualisieren"</string>
+    <string name="toast_settings_saved">" Einstellungen gespeichert"</string>
+</resources>

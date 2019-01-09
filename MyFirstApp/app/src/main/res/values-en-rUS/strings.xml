@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">MyFirstApp</string>
     <string name="police_text">Police</string>
-    <string name="traffic_text">Traffic</string>
+    <string name="traffic_text">Traffic information</string>
     <string name="stockholm_header">Stockholm</string>
     <string name="goteborg_header">Gothenburg</string>
     <string name="malmo_header">Malmo</string>
@@ -10,4 +10,9 @@
     <string name="choose_location_text">Choose your location</string>
     <string name="choose_updates_text">Choose which updates you want</string>
     <string name="save_button_text">Save</string>
+    <string name="toast_updating">Updating events, please wait</string>
+    <string name="no_policedata">No data to show</string>
+    <string name="toast_updatecomplete">Events updated</string>
+    <string name="toast_noupdate">Nothing to update</string>
+    <string name="toast_settings_saved">Settings saved</string>
 </resources>

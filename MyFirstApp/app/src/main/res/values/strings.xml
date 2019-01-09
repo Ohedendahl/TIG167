@@ -5,10 +5,17 @@
     <string name="stockholm_header">Stockholm</string>
     <string name="goteborg_header">Göteborg</string>
     <string name="malmo_header">Malmö</string>
+    <string name="no_policedata">Ingen data att visa</string>
+
 
     <string name="settings_page_header">Inställningar</string>
     <string name="choose_location_text">Välj din plats</string>
     <string name="choose_updates_text">Välj vilka uppdateringar du vill ha</string>
     <string name="save_button_text">Spara</string>
+
+    <string name="toast_updating">Uppdaterar händelser, var god vänta</string>
+    <string name="toast_updatecomplete">Händelser uppdaterade</string>
+    <string name="toast_noupdate">Inget att uppdatera</string>
+    <string name="toast_settings_saved">Inställningar sparade </string>
 
 </resources>

@@ -41,6 +41,7 @@ public class Preferences extends AppCompatActivity {
         targetList.add(1, getString(R.string.stockholm_header));
         targetList.add(2, getString(R.string.malmo_header));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, targetList);
+
         s.setAdapter(adapter);
         s.setSelection(pref.getInt("valSpinner",0));
 
@@ -56,14 +57,29 @@ public class Preferences extends AppCompatActivity {
 
         final CheckBox checkBoxPolice = findViewById(R.id.polisenCheck);
         final CheckBox checkBoxTraffic = findViewById(R.id.trafikinfoCheck);
+        String stadURL = "Göteborg";
 
-        Spinner s = (Spinner) findViewById(R.id.spinner2);
+        Spinner s = findViewById(R.id.spinner2);
         int positionSpinner = s.getSelectedItemPosition();
 
         prefEditor.putInt("valSpinner",positionSpinner);
-        String stadSpinner = s.getSelectedItem().toString();
-        prefEditor.putString("stad", stadSpinner);
-        prefEditor.putString("policeURL", "https://polisen.se/api/events?locationname=" + stadSpinner);
+
+        if (positionSpinner == 0) {
+            stadURL = "Göteborg";
+        }
+
+        if (positionSpinner == 1) {
+            stadURL = "Stockholm";
+        }
+
+        if (positionSpinner == 2) {
+            stadURL = "Malmö";
+        }
+
+        prefEditor.putString("policeURL", "https://polisen.se/api/events?locationname=" + stadURL);
+
+        String rubrikStad = s.getSelectedItem().toString();
+        prefEditor.putString("stad", rubrikStad);
 
 
         if (checkBoxPolice.isChecked()) {
@@ -83,8 +99,9 @@ public class Preferences extends AppCompatActivity {
         prefEditor.apply();
 
         me = this;
-        Toast.makeText(me, "Inställningar sparade", Toast.LENGTH_SHORT).show();
+        Toast.makeText(me, me.getResources().getString(R.string.toast_settings_saved), Toast.LENGTH_SHORT).show();
    }
+
 
 }
 
