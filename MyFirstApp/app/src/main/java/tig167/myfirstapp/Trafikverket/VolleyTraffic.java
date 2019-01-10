@@ -48,9 +48,9 @@ public class VolleyTraffic {
 
         try
         {
-            String requestXml = new String(Files.readAllBytes(Paths.get("TrafficEventsRequests.xml")));
+            String requestXml = new String(Files.readAllBytes(Paths.get("TrafficEventsRequests.xml"))); //Use SharedPreferences or resources instead here.
 
-             URL url = new URL("www.dummyURL.com"); //Get URL from Sharedprefs instead
+             URL url = new URL("http://api.trafikinfo.trafikverket.se/v1.3/data.json");
             URLConnection con = url.openConnection();
 
             // specify that we will send output and accept input

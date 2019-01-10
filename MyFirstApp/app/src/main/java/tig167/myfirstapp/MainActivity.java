@@ -106,7 +106,7 @@
                 }
             });
             TextView headerText = findViewById(R.id.text_header);
-            headerText.setText(pref.getString("stad", "ingen stad hittades"));
+            headerText.setText(pref.getString("stad", "<-Välj stad"));
 
 
         }
